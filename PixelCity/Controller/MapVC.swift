@@ -7,14 +7,26 @@
 //
 
 import UIKit
+import MapKit
 
 class MapVC: UIViewController {
-
+    
+    // MARK: - Outlets
+    @IBOutlet weak var mapView: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        mapView.delegate = self
     }
 
-
+    // MARK: - Actions
+    @IBAction func onCenterMapPressed(_ sender: Any) {
+    }
+    
 }
 
+// MARK: - Map View methods
+extension MapVC: MKMapViewDelegate {
+    
+}
