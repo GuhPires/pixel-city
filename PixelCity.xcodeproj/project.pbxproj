@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		EC4FDAC52475EEDE00E13DFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC4FDAC32475EEDE00E13DFB /* Main.storyboard */; };
 		EC4FDAC72475EEF700E13DFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC4FDAC62475EEF700E13DFB /* Assets.xcassets */; };
 		EC4FDACA2475EEF700E13DFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC4FDAC82475EEF700E13DFB /* LaunchScreen.storyboard */; };
+		EC4FDAD72476032900E13DFB /* DroppablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FDAD62476032900E13DFB /* DroppablePin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		EC4FDAC62475EEF700E13DFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC4FDAC92475EEF700E13DFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC4FDACB2475EEF700E13DFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC4FDAD62476032900E13DFB /* DroppablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppablePin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +58,6 @@
 				34067FE232A196B19A28DB1F /* Pods-PixelCity.debug.xcconfig */,
 				341C06C7E2C81E5558191126 /* Pods-PixelCity.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -107,6 +108,7 @@
 		EC4FDAD22475EF1F00E13DFB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EC4FDAD62476032900E13DFB /* DroppablePin.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -248,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC4FDAC22475EEDE00E13DFB /* MapVC.swift in Sources */,
+				EC4FDAD72476032900E13DFB /* DroppablePin.swift in Sources */,
 				EC4FDABE2475EEDE00E13DFB /* AppDelegate.swift in Sources */,
 				EC4FDAC02475EEDE00E13DFB /* SceneDelegate.swift in Sources */,
 			);
