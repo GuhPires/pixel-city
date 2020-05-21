@@ -18,6 +18,7 @@
 		EC4FDAD92476189F00E13DFB /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FDAD82476189F00E13DFB /* PhotoCell.swift */; };
 		EC4FDADB24761D2B00E13DFB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FDADA24761D2B00E13DFB /* Constants.swift */; };
 		EC4FDADD24761D4600E13DFB /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FDADC24761D4600E13DFB /* Secrets.swift */; };
+		EC4FDADF247634BA00E13DFB /* PopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FDADE247634BA00E13DFB /* PopVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		EC4FDAD82476189F00E13DFB /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		EC4FDADA24761D2B00E13DFB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EC4FDADC24761D4600E13DFB /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		EC4FDADE247634BA00E13DFB /* PopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				EC4FDAC12475EEDE00E13DFB /* MapVC.swift */,
+				EC4FDADE247634BA00E13DFB /* PopVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				EC4FDAD72476032900E13DFB /* DroppablePin.swift in Sources */,
 				EC4FDABE2475EEDE00E13DFB /* AppDelegate.swift in Sources */,
 				EC4FDAC02475EEDE00E13DFB /* SceneDelegate.swift in Sources */,
+				EC4FDADF247634BA00E13DFB /* PopVC.swift in Sources */,
 				EC4FDADB24761D2B00E13DFB /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

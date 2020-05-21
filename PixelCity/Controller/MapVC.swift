@@ -53,7 +53,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         collectionView?.register(PhotoCell.self, forCellWithReuseIdentifier: "photoCell")
         collectionView?.delegate = self
         collectionView?.dataSource = self
-        collectionView?.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        collectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         pullUpView.addSubview(collectionView!)
     }
     
@@ -150,6 +150,10 @@ extension MapVC: MKMapViewDelegate {
         removeProgressLabel()
         cancelAllSessions()
         
+        imgURLArray = []
+        imgArray = []
+        collectionView?.reloadData()
+        
         let touchPoint = sender.location(in: mapView)
         let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
@@ -184,8 +188,6 @@ extension MapVC: MKMapViewDelegate {
     }
     
     func retrieveUrls(forAnnotation annotation: DroppablePin, handler: @escaping (_ status: Bool) -> ()) {
-        imgURLArray = []
-        
         AF.request(flickrURL(withAnnotation: annotation, numberOfPhotos: 40)).responseJSON { (response) in
             
             if response.error == nil {
@@ -205,8 +207,6 @@ extension MapVC: MKMapViewDelegate {
     }
     
     func retrieveImages(handler: @escaping (_ status: Bool) -> ()) {
-        imgArray = []
-        
         for url in imgURLArray {
             AF.request(url).responseImage { (response) in
                 
@@ -251,11 +251,14 @@ extension MapVC: CLLocationManagerDelegate {
 // MARK: - Collection View methods
 extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return imgArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as? PhotoCell {
+            let imgFromIdx = imgArray[indexPath.item]
+            let imgView = UIImageView(image: imgFromIdx)
+            cell.addSubview(imgView)
             return cell
         } else {
             return PhotoCell()
