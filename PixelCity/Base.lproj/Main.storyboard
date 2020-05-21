@@ -81,6 +81,45 @@
             </objects>
             <point key="canvasLocation" x="132" y="106.40394088669952"/>
         </scene>
+        <!--PopVC-->
+        <scene sceneID="rQq-OR-AIG">
+            <objects>
+                <viewController storyboardIdentifier="PopVC" id="pPt-HT-hmT" customClass="PopVC" customModule="PixelCity" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hru-Fk-5Fg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lF2-1V-96Y">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double-tap to dismiss" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m4l-cW-7Rq">
+                                <rect key="frame" x="80" y="746" width="215" height="22"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lF2-1V-96Y" secondAttribute="trailing" id="334-vF-Ndo"/>
+                            <constraint firstAttribute="trailing" secondItem="m4l-cW-7Rq" secondAttribute="trailing" constant="80" id="8DY-z6-C2y"/>
+                            <constraint firstItem="m4l-cW-7Rq" firstAttribute="leading" secondItem="Hru-Fk-5Fg" secondAttribute="leading" constant="80" id="CHd-94-UgC"/>
+                            <constraint firstItem="lF2-1V-96Y" firstAttribute="leading" secondItem="Hru-Fk-5Fg" secondAttribute="leading" id="G55-9W-bO1"/>
+                            <constraint firstItem="XL1-RN-j2M" firstAttribute="bottom" secondItem="m4l-cW-7Rq" secondAttribute="bottom" constant="10" id="Lk1-pK-mZv"/>
+                            <constraint firstItem="lF2-1V-96Y" firstAttribute="top" secondItem="Hru-Fk-5Fg" secondAttribute="top" id="SHA-iZ-1ih"/>
+                            <constraint firstAttribute="bottom" secondItem="lF2-1V-96Y" secondAttribute="bottom" id="m1N-TM-D6i"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XL1-RN-j2M"/>
+                    </view>
+                    <connections>
+                        <outlet property="popImageView" destination="lF2-1V-96Y" id="9YK-ce-KFQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oub-1B-7DJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="846" y="106"/>
+        </scene>
     </scenes>
     <resources>
         <image name="locationButton" width="67" height="67"/>

@@ -19,7 +19,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pullUpView: UIView!
     
-    // MARK: - Global variables
+    // MARK: - Global variables/constants
     var locationManager = CLLocationManager()
     let authStatus = CLLocationManager.authorizationStatus()
     let regionRadius: Double = 1000
@@ -263,5 +263,11 @@ extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource {
         } else {
             return PhotoCell()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else { return }
+        popVC.initData(forImage: imgArray[indexPath.item])
+        present(popVC, animated: true, completion: nil)
     }
 }
