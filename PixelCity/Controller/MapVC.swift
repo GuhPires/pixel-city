@@ -31,7 +31,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     var flowLayout = UICollectionViewFlowLayout()
     var collectionView: UICollectionView?
     
-    var imgArray = [String]()
+    var imgURLArray = [String]()
+    var imgArray = [UIImage]()
     
     // MARK: - Init methods
     override func viewDidLoad() {
@@ -78,6 +79,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func animateViewDown() {
+        cancelAllSessions()
         pullUpViewHeightConstraint.constant = 1
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -102,7 +104,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     func addProgressLabel() {
         progressLbl = UILabel()
         progressLbl?.frame = CGRect(x: (screenSize.width / 2) - 125, y: 135, width: 250, height: 40)
-        progressLbl?.font = UIFont(name: "Avenir Next", size: 18)
+        progressLbl?.font = UIFont(name: "Avenir Next", size: 14)
         progressLbl?.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
         progressLbl?.textAlignment = .center
         collectionView?.addSubview(progressLbl!)
@@ -146,6 +148,7 @@ extension MapVC: MKMapViewDelegate {
         removePin()
         removeSpinner()
         removeProgressLabel()
+        cancelAllSessions()
         
         let touchPoint = sender.location(in: mapView)
         let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
@@ -158,7 +161,13 @@ extension MapVC: MKMapViewDelegate {
         
         retrieveUrls(forAnnotation: annotation) { (urls) in
             if urls {
-                print("Success! ", self.imgArray)
+                self.retrieveImages { (images) in
+                    if images {
+                        self.removeSpinner()
+                        self.removeProgressLabel()
+                        self.collectionView?.reloadData()
+                    }
+                }
             }
         }
         
@@ -175,7 +184,7 @@ extension MapVC: MKMapViewDelegate {
     }
     
     func retrieveUrls(forAnnotation annotation: DroppablePin, handler: @escaping (_ status: Bool) -> ()) {
-        imgArray = []
+        imgURLArray = []
         
         AF.request(flickrURL(withAnnotation: annotation, numberOfPhotos: 40)).responseJSON { (response) in
             
@@ -185,13 +194,41 @@ extension MapVC: MKMapViewDelegate {
                 let photosArr = photosDict["photo"] as! [Dictionary<String, AnyObject>]
                 for photo in photosArr {
                     let postUrl = "https://farm\(photo["farm"]!).staticflickr.com/\(photo["server"]!)/\(photo["id"]!)_\(photo["secret"]!)_z_d.jpg"
-                    self.imgArray.append(postUrl)
+                    self.imgURLArray.append(postUrl)
                 }
                 handler(true)
             } else {
                 debugPrint(response.error as Any)
                 handler(false)
             }
+        }
+    }
+    
+    func retrieveImages(handler: @escaping (_ status: Bool) -> ()) {
+        imgArray = []
+        
+        for url in imgURLArray {
+            AF.request(url).responseImage { (response) in
+                
+                if case .success(let image) = response.result {
+                    self.imgArray.append(image)
+                    self.progressLbl?.text = "\(self.imgArray.count)/\(self.imgURLArray.count) IMAGES DOWNLOADED"
+                    
+                    if self.imgArray.count == self.imgURLArray.count {
+                        handler(true)
+                    }
+                } else {
+                    debugPrint(response.error as Any)
+                    handler(false)
+                }
+            }
+        }
+    }
+    
+    func cancelAllSessions() {
+        Alamofire.Session.default.session.getTasksWithCompletionHandler { (sessionDataTask, uploadData, downloadData) in
+            sessionDataTask.forEach({ $0.cancel() })
+            downloadData.forEach({ $0.cancel() })
         }
     }
 }
