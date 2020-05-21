@@ -7,3 +7,5 @@
 //
 
 import Foundation
+
+let API_KEY = FLICKR_KEY
