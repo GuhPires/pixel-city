@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Alamofire
+import AlamofireImage
 
 class MapVC: UIViewController, UIGestureRecognizerDelegate {
     
@@ -21,12 +23,17 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     var locationManager = CLLocationManager()
     let authStatus = CLLocationManager.authorizationStatus()
     let regionRadius: Double = 1000
+    
     let screenSize = UIScreen.main.bounds
     var spinner: UIActivityIndicatorView?
     var progressLbl: UILabel?
+    
     var flowLayout = UICollectionViewFlowLayout()
     var collectionView: UICollectionView?
     
+    var imgArray = [String]()
+    
+    // MARK: - Init methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -149,6 +156,12 @@ extension MapVC: MKMapViewDelegate {
         let coordinateRegion = MKCoordinateRegion(center: touchCoordinate, latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
         
+        retrieveUrls(forAnnotation: annotation) { (urls) in
+            if urls {
+                print("Success! ", self.imgArray)
+            }
+        }
+        
         animateViewUp()
         addSwipe()
         addSpinner()
@@ -158,6 +171,27 @@ extension MapVC: MKMapViewDelegate {
     func removePin() {
         for annotation in mapView.annotations {
             mapView.removeAnnotation(annotation)
+        }
+    }
+    
+    func retrieveUrls(forAnnotation annotation: DroppablePin, handler: @escaping (_ status: Bool) -> ()) {
+        imgArray = []
+        
+        AF.request(flickrURL(withAnnotation: annotation, numberOfPhotos: 40)).responseJSON { (response) in
+            
+            if response.error == nil {
+                guard let json = response.value as? Dictionary<String, AnyObject> else { return }
+                let photosDict = json["photos"] as! Dictionary<String, AnyObject>
+                let photosArr = photosDict["photo"] as! [Dictionary<String, AnyObject>]
+                for photo in photosArr {
+                    let postUrl = "https://farm\(photo["farm"]!).staticflickr.com/\(photo["server"]!)/\(photo["id"]!)_\(photo["secret"]!)_z_d.jpg"
+                    self.imgArray.append(postUrl)
+                }
+                handler(true)
+            } else {
+                debugPrint(response.error as Any)
+                handler(false)
+            }
         }
     }
 }
